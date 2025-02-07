@@ -1,0 +1,6 @@
+[submodule "meta-raspberrypi"]
+	path = meta-raspberrypi
+	url = https://github.com/agherzan/meta-raspberrypi
+[submodule "meta-rust-bin"]
+	path = meta-rust-bin
+	url = https://github.com/rust-embedded/meta-rust-bin
