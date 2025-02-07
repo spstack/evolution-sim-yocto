@@ -8,8 +8,8 @@ inherit cargo_bin
 do_compile[network] = "1"
 do_configure[network] = "1"
 
-SRC_URI = "git://github.com/spstack/evolution-sim.git;protocol=https;branch=dev_led"
-SRCREV="be0040b3e35f38f1a6a143d13c154e7b32705c2d"
+SRC_URI = "git://github.com/spstack/evolution-sim.git;protocol=https;branch=main"
+SRCREV="d797c9e613798620ed67e2b8891074c0f96afcb1"
 
 SRC_URI += "file://evsim.sh"
 
@@ -30,16 +30,6 @@ do_configure:prepend() {
 do_install:append() {
   install -d ${D}${sysconfdir}/init.d
 
-  # Install modified version of the evsim.sh startup script. This is copied from skeleton example
-  #cat ${WORKDIR}/evsim.sh | \
-  #  sed -e 's,/etc,${sysconfdir},g' \
-  #      -e 's,/usr/sbin,${sbindir},g' \
-  #      -e 's,/var,${localstatedir},g' \
-  #      -e 's,/usr/bin,${bindir},g' \
-  #      -e 's,/usr,${prefix},g' > ${D}${sysconfdir}/init.d/evsim.sh
-  #chmod a+x ${D}${sysconfdir}/init.d/evsim.sh
-
-
   # Create directories:
   #   ${D}${sysconfdir}/init.d - will hold the scripts
   #   ${D}${sysconfdir}/rcS.d  - will contain a link to the script that runs at startup
@@ -57,7 +47,6 @@ do_install:append() {
   install -d ${D}${sysconfdir}/rc3.d
   install -d ${D}${sysconfdir}/rc4.d
   install -d ${D}${sysconfdir}/rc5.d
-  #install -d ${D}${sbindir}
 
   #
   # Install files in to the image
@@ -65,8 +54,6 @@ do_install:append() {
   # The files fetched via SRC_URI (above) will be in ${WORKDIR}.
   #
   install -m 0755 ${WORKDIR}/evsim.sh         ${D}${sysconfdir}/init.d/
-  #install -m 0755 ${WORKDIR}/run-script      ${D}${sysconfdir}/init.d/
-  #install -m 0755 ${WORKDIR}/support-script  ${D}${sbindir}/
 
   #
   # Create symbolic links from the runlevel directories to the script files.
@@ -76,10 +63,9 @@ do_install:append() {
   #   rc5.d/S90run-script will be called (with %1='start') when entering runlevel 5.
   #   rc5.d/K90run-script will be called (with %1='stop') when exiting runlevel 5.
   #
-  #ln -sf ../init.d/startup-script  ${D}${sysconfdir}/rcS.d/S90startup-script
-  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc1.d/S90evsim.sh
-  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc2.d/S90evsim.sh
-  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc3.d/S90evsim.sh
-  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc4.d/S90evsim.sh
-  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc5.d/S90evsim.sh 
+  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc1.d/S11evsim.sh
+  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc2.d/S11evsim.sh
+  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc3.d/S11evsim.sh
+  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc4.d/S11evsim.sh
+  ln -sf ../init.d/evsim.sh      ${D}${sysconfdir}/rc5.d/S11evsim.sh 
 }

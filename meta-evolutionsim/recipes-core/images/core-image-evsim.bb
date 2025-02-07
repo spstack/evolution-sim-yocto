@@ -8,3 +8,6 @@ COMPATIBLE_MACHINE = "^rpi$"
 IMAGE_INSTALL:append = " evolution-sim"
 
 LICENSE_FLAGS_ACCEPTED = "synaptics-killswitch"
+
+# Remove bluetooth capability explicitly just to speed up boot time a bit
+MACHINE_FEATURES:remove = "bluetooth"
