@@ -9,7 +9,7 @@ do_compile[network] = "1"
 do_configure[network] = "1"
 
 SRC_URI = "git://github.com/spstack/evolution-sim.git;protocol=https;branch=main"
-SRCREV="d797c9e613798620ed67e2b8891074c0f96afcb1"
+SRCREV="61ec2692c4c99e7fbb80c4a79d94c55f6ab144ca"
 
 SRC_URI += "file://evsim.sh"
 
